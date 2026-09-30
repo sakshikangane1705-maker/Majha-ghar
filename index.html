@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Majha Ghar - Kopargaon</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#fff7f2;display:flex;justify-content:center}
+.phone{width:420px;min-height:100vh;background:white;box-shadow:0 0 30px rgba(0,0,0,.08);padding-bottom:20px}
+.header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo-wrap{display:flex;gap:10px;align-items:center}.logo{width:52px;height:52px;background:#f36f21;border-radius:14px;display:flex;align-items:center;justify-content:center;color:white;font-size:26px}
+.header h1{font-size:24px;font-weight:800;color:#1a1433}.header p{font-size:11px;color:#f36f21}
+.search{margin:10px 20px;background:#f5f1ee;border:1.5px solid #e8ddd6;border-radius:24px;padding:12px 14px;display:flex;align-items:center;gap:10px}.search input{border:none;background:transparent;width:100%;outline:none;font-size:14px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 20px}.c-orange{background:#f36f21;border-radius:18px;padding:16px;color:white;min-height:185px;position:relative;cursor:pointer}.c-white{background:white;border:2px solid #f36f21;border-radius:18px;padding:16px;min-height:185px;position:relative;cursor:pointer}
+.ibox{width:52px;height:52px;background:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px}.c-white .ibox{background:#f36f21}.c-orange h2,.c-white h2{margin-top:14px;font-size:19px;line-height:1.2}.ver{font-size:12px;margin-top:6px}.arrow{position:absolute;right:12px;bottom:12px;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center}.c-orange .arrow{background:white;color:#f36f21}.c-white .arrow{background:#f36f21;color:white}
+.filters{padding:10px 20px}.ftop{display:flex;justify-content:space-between;align-items:center}.ftop h3{font-size:18px}.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.fitem{border:1.5px solid #f36f21;border-radius:14px;padding:10px 4px;text-align:center;font-size:11px;font-weight:600;background:#fffaf6;cursor:pointer}.fitem.active{background:#f36f21;color:white}
+.mapbtn{margin:16px 20px;background:#f36f21;border-radius:14px;padding:14px;color:white;text-align:center;font-weight:700;font-size:18px;cursor:pointer}.listing{padding:0 20px}.item{border:1.5px solid #ffdec3;border-radius:14px;padding:12px;margin-bottom:10px;background:#fffcf9}.item h4{font-size:14px;color:#1a1433}.meta{font-size:12px;color:#666;margin:4px 0}.price{color:#f36f21;font-weight:800;font-size:16px}.tag{display:inline-block;background:#fff0e5;border:1px solid #ffbf8a;border-radius:10px;padding:2px 6px;font-size:10px;margin:2px}.callbtn{margin-top:8px;width:100%;background:#f36f21;color:white;border:none;padding:8px;border-radius:8px;font-weight:600;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="phone">
+<div class="header"><div class="logo-wrap"><div class="logo">🏠</div><div><h1>Majha Ghar</h1><p>Rooms & Mess Finder • Kopargaon</p></div></div><div style="width:40px;height:40px;background:#f36f21;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white">P</div></div>
+<div class="search"><span>🔍</span><input id="s" placeholder="Search Rooms, Mess in Kopargaon" onkeyup="search()"><span>🎤</span></div>
+<div class="cards"><div class="c-orange" onclick="filterType('room')"><div class="ibox">🏠</div><h2>Find Rooms</h2><div class="ver">15+ Verified 🛡️</div><div class="arrow">→</div></div><div class="c-white" onclick="filterType('mess')"><div class="ibox">🍽️</div><h2 style="color:#1a1433">Find Mess</h2><div class="ver" style="color:#666">10+ Verified 🛡️</div><div class="arrow">→</div></div></div>
+<div class="filters"><div class="ftop"><h3>Filters</h3><span style="font-size:12px;color:#f36f21;cursor:pointer" onclick="resetF()">Clear all ↻</span></div><div class="fgrid"><div class="fitem" onclick="toggleFilter('sanjivani',this)">📍<br>Near Sanjivani</div><div class="fitem" onclick="toggleFilter('3000',this)">₹<br>Under Rs.3000</div><div class="fitem" onclick="toggleFilter('girls',this)">👧<br>Girls Only</div><div class="fitem" onclick="toggleFilter('veg',this)">🌿<br>Veg Only</div></div></div>
+<div class="mapbtn" onclick="alert('Map View will show all rooms on Google Maps near Sanjivani University')">📍 Map View</div><div class="listing" id="list"></div><div style="text-align:center;padding:14px;font-size:12px;color:#666">🛡️ Trusted by 200+ Students • Made for Sanjivani University</div>
+</div>
+<script>
+const allData=[
+{id:1,type:'room',title:'Sai Prasad Boys Hostel',rent:4000,dist:'0.7 km from Sanjivani',gender:'Boys',sharing:'2 Sharing',amenities:['WiFi','Water 24x7','Mess Included'],owner:'Rahul Patil - 9876543210'},
+{id:2,type:'room',title:'Shree Girls Hostel - Safe & Secure',rent:5500,dist:'0.9 km from Sanjivani',gender:'Girls',sharing:'2 Sharing',amenities:['WiFi','CCTV','Laundry','Mess Included'],owner:'Sunita K - 9876543211'},
+{id:3,type:'room',title:'Single Room - Budget for Students',rent:3000,dist:'0.5 km from Sanjivani',gender:'Boys',sharing:'Single',amenities:['Water 24x7','WiFi'],owner:'Amit - 9876543212'},
+{id:4,type:'room',title:'2BHK Flat - Shirdi Road',rent:6500,dist:'1.5 km from Sanjivani',gender:'Boys',sharing:'4 Sharing',amenities:['Parking','WiFi','Water 24x7'],owner:'Vijay - 9876543213'},
+{id:5,type:'room',title:'Omkar PG - Near Bus Stand',rent:4800,dist:'1.0 km from Sanjivani',gender:'Girls',sharing:'3 Sharing',amenities:['Mess Included','Security','WiFi'],owner:'Kavita - 9876543214'},
+{id:6,type:'room',title:'Yashwant Boys Room + Mess Combo',rent:5000,dist:'0.6 km from Sanjivani',gender:'Boys',sharing:'2 Sharing',amenities:['Mess Included','WiFi','Laundry'],owner:'Suresh - 9876543215'},
+{id:7,type:'room',title:'New Girls Hostel - Kopargaon Main',rent:6000,dist:'0.8 km from Sanjivani',gender:'Girls',sharing:'2 Sharing',amenities:['WiFi','Mess Included','CCTV'],owner:'Priya - 9876543216'},
+{id:8,type:'room',title:'Budget Room - For 1st Year Students',rent:3500,dist:'0.4 km from Sanjivani',gender:'Boys',sharing:'2 Sharing',amenities:['Water 24x7','WiFi'],owner:'Ganesh - 9876543217'},
+{id:9,type:'room',title:'Luxury PG with Food',rent:7000,dist:'1.2 km from Sanjivani',gender:'Girls',sharing:'Single',amenities:['AC','WiFi','Mess Included','Laundry'],owner:'Neha - 9876543218'},
+{id:10,type:'room',title:'Shared Room - Sanjivani Gate No.2',rent:4200,dist:'0.3 km from Sanjivani',gender:'Boys',sharing:'3 Sharing',amenities:['WiFi','Mess Included','Water 24x7'],owner:'Sachin - 9876543219'},
+{id:11,type:'mess',title:'Aai Saheb Mess - Veg Thali',rent:3000,dist:'0.6 km from Sanjivani',gender:'Veg Only',sharing:'2 Time Meal',amenities:['Veg Only','Home Made','Tiffin'],owner:'Aai Mess - 9876500001'},
+{id:12,type:'mess',title:'Sai Tiffin Service - Non-Veg Available',rent:2800,dist:'0.9 km from Sanjivani',gender:'Both',sharing:'2 Time Meal',amenities:['Veg/Non-Veg','Delivery'],owner:'Sai - 9876500002'},
+{id:13,type:'mess',title:'Pune Special Mess',rent:3200,dist:'1.1 km from Sanjivani',gender:'Veg Only',sharing:'3 Time Meal',amenities:['Veg Only','Chapati-Bhaji'],owner:'Pune Mess - 9876500003'},
+{id:14,type:'mess',title:'Student Budget Mess',rent:2500,dist:'0.5 km from Sanjivani',gender:'Both',sharing:'2 Time Meal',amenities:['Budget','Veg'],owner:'Budget - 9876500004'},
+{id:15,type:'mess',title:'Girls Special Mess - Kopargaon',rent:3000,dist:'0.8 km from Sanjivani',gender:'Girls Only',sharing:'2 Time Meal',amenities:['Veg Only','Safe'],owner:'Girls Mess - 9876500005'},
+{id:16,type:'mess',title:'Maharashtrian Thali Mess',rent:3500,dist:'0.7 km from Sanjivani',gender:'Both',sharing:'Full Day',amenities:['Veg Only','Special Thali'],owner:'Thali - 9876500006'},
+{id:17,type:'mess',title:'Shree Swami Mess',rent:2900,dist:'1.0 km from Sanjivani',gender:'Veg Only',sharing:'2 Time Meal',amenities:['Veg Only'],owner:'Swami - 9876500007'},
+{id:18,type:'mess',title:'Hostel Mess + Laundry Combo',rent:4000,dist:'0.6 km from Sanjivani',gender:'Both',sharing:'With Room',amenities:['Mess+Room'],owner:'Combo - 9876500008'},
+{id:19,type:'mess',title:'Night Mess - For Study Students',rent:2000,dist:'0.4 km from Sanjivani',gender:'Both',sharing:'Night Only',amenities:['Night Mess'],owner:'Night - 9876500009'},
+{id:20,type:'mess',title:'Premium Mess - Near Sanjivani',rent:4500,dist:'0.3 km from Sanjivani',gender:'Veg Only',sharing:'3 Time Meal + Snacks',amenities:['Premium','Veg Only'],owner:'Premium - 9876500010'}];
+let currentType='all',filters=[];
+function render(data){document.getElementById('list').innerHTML=data.map(d=>`<div class="item"><h4>${d.type==='room'?'🏠':'🍽️'} ${d.title}</h4><div class="meta">📍 ${d.dist} • ${d.gender} • ${d.sharing}</div><div>${d.amenities.map(a=>'<span class="tag">'+a+'</span>').join('')}</div><div class="price">₹${d.rent} / month</div><div style="font-size:11px;color:#555;margin-top:4px">👤 ${d.owner}</div><button class="callbtn" onclick="alert('Calling owner: ${d.owner}')">📞 Call Owner</button></div>`).join('')}
+function filterType(t){currentType=t;apply()}
+function toggleFilter(f,el){el.classList.toggle('active');if(filters.includes(f))filters=filters.filter(x=>x!==f);else filters.push(f);apply()}
+function resetF(){filters=[];currentType='all';document.querySelectorAll('.fitem').forEach(e=>e.classList.remove('active'));apply()}
+function search(){let q=document.getElementById('s').value.toLowerCase();let filtered=allData.filter(d=>d.title.toLowerCase().includes(q)||d.dist.toLowerCase().includes(q));render(filtered)}
+function apply(){let d=allData;if(currentType!=='all')d=d.filter(x=>x.type===currentType);if(filters.includes('girls'))d=d.filter(x=>x.gender.toLowerCase().includes('girls'));if(filters.includes('veg'))d=d.filter(x=>x.gender.toLowerCase().includes('veg')||x.amenities.join('').toLowerCase().includes('veg'));if(filters.includes('3000'))d=d.filter(x=>x.rent<=3000);if(filters.includes('sanjivani'))d=d.filter(x=>x.dist.includes('0.3')||x.dist.includes('0.4')||x.dist.includes('0.5'));render(d)}
+render(allData);
+</script>
+</body>
+</html>
